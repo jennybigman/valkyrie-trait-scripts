@@ -84,5 +84,5 @@
 					 Species = ComName)
 	
 
-	write_csv(FL_traits_trim, file = "FishLife_traits.csv")
+	write_csv(FL_traits_trim, file = here("./data/FishLife_traits.csv"))
 	

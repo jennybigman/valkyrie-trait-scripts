@@ -19,8 +19,8 @@
   library(here)
 
 	# read in dfs from FishLife and FishBase
-	FL_traits_trim <- read_csv(file = "FishLife_traits.csv")
-	FB_traits_trim <- read_csv(file = "FishBase_traits.csv")
+	FL_traits_trim <- read_csv(file = here("./data/FishLife_traits.csv"))
+	FB_traits_trim <- read_csv(file = here("./data/FishBase_traits.csv"))
 
 	# join with FishLife
 	all_traits <- left_join(FL_traits_trim, FB_traits_trim) 
@@ -76,7 +76,7 @@
 	# fill in data/values from existing df
 	
 	# load Ron's dataset
-	d_ron <- read_csv("species_data.csv") |>
+	d_ron <- read_csv(here("./data/species_data.csv")) |>
 		select(-contains("..."), -contains("speed")) |>
 		filter(Species != "NA") |> 
 		filter(Species != "notes")
@@ -133,4 +133,6 @@
 	all_traits$MinOptimalSal = 30
 	all_traits$MaxOptimalSal = 999
 	
-	write_csv(all_traits, "all_traits.csv")
+	write_csv(all_traits, here("./data/all_traits.csv"))
+
+	          

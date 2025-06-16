@@ -5,7 +5,7 @@
   library(here)
 
 	# load trait data
-	all_traits <- read_csv("all_traits.csv")
+	all_traits <- read_csv(here("./data/all_traits.csv"))
 
 	# fishbase species codes
 	common_names_list <- c("Atlantic Cod", "Atlantic Mackerel", 
@@ -61,7 +61,7 @@
 	
 
 	
-	write_csv(all_traits, "all_traits.csv")
+	write_csv(all_traits, "./data/all_traits.csv")
 
 
 	

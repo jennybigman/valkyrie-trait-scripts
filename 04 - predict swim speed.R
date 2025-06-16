@@ -15,10 +15,10 @@
 	library(tidyverse)
   library(here)
 
-	all_traits <- read_csv("all_traits.csv")
+	all_traits <- read_csv(here("./data/all_traits.csv"))
 
 	# predict swim speed
-	load(file = "swim_speed_mod.rda")
+	load(file = here("./data/swim_speed_mod.rda"))
 
 	# predict using model fit
 	
@@ -77,4 +77,6 @@
 					 `JvnlMinSwimSpeed_cm/s` = `JvnlMinSwimSpeed_bl/s` * jv_avg_length,
 					 `JvnlMaxSwimSpeed_cm/s` = `JvnlMaxSwimSpeed_bl/s` * jv_avg_length)
 	
-	write_csv(all_traits, "all_traits.csv")
+	write_csv(all_traits, here("./data/all_traits.csv"))
+
+	          

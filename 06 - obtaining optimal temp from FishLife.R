@@ -8,7 +8,7 @@
 	library(here)
 	
 	# load trait data
-	all_traits <- read_csv("all_traits.csv")
+	all_traits <- read_csv(here("./data/all_traits.csv"))
 
 	
 	#	options("duckdbfs_use_nightly" = FALSE) # for rfishbase pkg compatibility

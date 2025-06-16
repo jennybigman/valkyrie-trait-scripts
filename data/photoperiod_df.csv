@@ -1,0 +1,7 @@
+Species,start_month,end_month,start_doy,end_doy,start_pp,end_pp,mid_pt
+Atlantic_Cod,11,4,319,105,10.03,13.21,11.620000000000001
+Atlantic_Mackerel,4,8,105,227,13.21,13.79,13.5
+Black_Sea_Bass,12,4,349,105,9.38,13.21,11.295000000000002
+Haddock,2,5,46,135,10.68,14.34,12.51
+Scup,5,8,135,227,14.34,13.79,14.065
+Yellowtail_Flounder,3,8,74,227,11.87,13.79,12.829999999999998

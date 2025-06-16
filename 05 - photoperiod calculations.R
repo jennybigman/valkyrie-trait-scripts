@@ -19,7 +19,7 @@
   library(here)
 
 	# load trait data
-	all_traits <- read_csv("all_traits.csv")
+	all_traits <- read_csv(here("./data/all_traits.csv"))
 	
 	# unique species 
 	common_names_list <- c("Atlantic Cod", "Atlantic Mackerel", 
@@ -169,7 +169,7 @@
 	
 	spn_df$mid_pt <- (spn_df$start_pp + spn_df$end_pp)/2
 	
-	write_csv(spn_df, file = "photoperiod_df.csv")
+	write_csv(spn_df, file = here("./data/photoperiod_df.csv"))
 	
 	# add to all_traits
 	
@@ -180,5 +180,5 @@
 		rename(SpawnStartMonth = start_month,
 					 SpawnEndMonth = end_month)
 	
-	write.csv(all_traits, file = "all_traits.csv")
+	write.csv(all_traits, file = here("./data/all_traits.csv"))
 

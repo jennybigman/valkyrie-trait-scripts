@@ -23,7 +23,7 @@
 	conflicts_prefer(dplyr::filter)
 	
 	# read in FishLife traits for later merging
-	FL_traits_trim <-	read_csv(file = "FishLife_traits.csv")
+	FL_traits_trim <-	read_csv(file = here("./data/FishLife_traits.csv"))
 
 	
 	#fb_tables() will tell you all of the tables in fishbase
@@ -243,4 +243,4 @@
 		rename(LengthWeightRelationshipA = a,
 					 LengthWeightRelationshipB = b)
 
-	write_csv(fishbase_dfs, file = "FishBase_traits.csv")
+	write_csv(fishbase_dfs, file = here("./data/FishBase_traits.csv"))
