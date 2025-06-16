@@ -1,7 +1,9 @@
 
+	library(FishLife)
+	library(rfishbase)
+	library(tidyverse)
+  library(here)
 
-	setwd("~/Library/CloudStorage/Dropbox/NOAA OST/IBM")
-	
 	# load trait data
 	all_traits <- read_csv("all_traits.csv")
 

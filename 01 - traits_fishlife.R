@@ -15,8 +15,7 @@
 	library(FishLife)
 	library(rfishbase)
 	library(tidyverse)
-	
-	setwd("~/Library/CloudStorage/Dropbox/NOAA OST/IBM")
+  library(here)
 	
 #	options("duckdbfs_use_nightly" = FALSE) # for rfishbase pkg compatibility
 	

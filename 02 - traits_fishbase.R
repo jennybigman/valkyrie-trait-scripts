@@ -13,11 +13,11 @@
 	library(rfishbase)
 	library(tidyverse)
 	library(conflicted)
+	library(FishLife)
+  library(here)
 
 	# set up
 	#options("duckdbfs_use_nightly" = FALSE) # for rfishbase pkg compatibility
-	
-	setwd("~/Library/CloudStorage/Dropbox/NOAA OST/IBM")
 	
 	conflicts_prefer(dplyr::select)
 	conflicts_prefer(dplyr::filter)

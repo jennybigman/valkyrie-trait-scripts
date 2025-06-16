@@ -13,6 +13,10 @@
 
 	library(lubridate)
 	library(meteor)
+	library(FishLife)
+	library(rfishbase)
+	library(tidyverse)
+  library(here)
 
 	# load trait data
 	all_traits <- read_csv("all_traits.csv")

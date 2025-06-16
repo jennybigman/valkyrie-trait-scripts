@@ -10,6 +10,10 @@
 # Modified: 
 ############################################################################################
 	library(brms)
+	library(FishLife)
+	library(rfishbase)
+	library(tidyverse)
+  library(here)
 
 	all_traits <- read_csv("all_traits.csv")
 

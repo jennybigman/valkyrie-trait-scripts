@@ -13,6 +13,11 @@
 # Modified: 
 ############################################################################################
 
+	library(FishLife)
+	library(rfishbase)
+	library(tidyverse)
+  library(here)
+
 	# read in dfs from FishLife and FishBase
 	FL_traits_trim <- read_csv(file = "FishLife_traits.csv")
 	FB_traits_trim <- read_csv(file = "FishBase_traits.csv")
