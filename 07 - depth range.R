@@ -30,8 +30,8 @@
 	depth <- fb_tbl("species") |>
 		filter(SpecCode %in% spec_codes) |>
 		select(Genus, Species, FBname, contains("Depth")) |>
-		rename(MaxDepth = DepthRangeComDeep,
-					 MinDepth = DepthRangeComShallow) |>
+		rename(MaxDepth = DepthRangeDeep,
+					 MinDepth = DepthRangeShallow) |>
 		mutate(common_name = case_when(
 			FBname == "Atlantic cod" ~ "Atlantic_Cod",
 			FBname == "Atlantic mackerel" ~ "Atlantic_Mackerel",
@@ -59,9 +59,16 @@
 		mutate(MaxDepth = ifelse(is.na(MaxDepth), depth_fill$MaxDepth, MaxDepth),
 					 MinDepth = ifelse(is.na(MinDepth), depth_fill$MinDepth, MinDepth))
 	
-
-	
 	write_csv(all_traits, "./data/all_traits.csv")
 
-
+	# order columns
 	
+
+	# remove columns not needed
+	all_traits_trim <- all_traits |>
+		select(-WeightAsymptotic, -ad_avg_length, -jv_avg_length)
+
+		write_csv(all_traits_trim, "./data/all_traits_trim.csv")
+
+		
+		all_traits_trim <- 	read.csv( "./data/all_traits_trim.csv")
