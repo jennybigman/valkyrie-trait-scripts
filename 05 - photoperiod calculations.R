@@ -172,7 +172,7 @@
 	write_csv(spn_df, file = here("./data/photoperiod_df.csv"))
 	
 	# add to all_traits
-	
+	 
 	spn_mo <- spn_df |>
 		select(Species, start_month, end_month)
 
