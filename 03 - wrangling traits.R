@@ -72,6 +72,16 @@
 					 -EggMortalityMax, -Mortality, 
 					 -GestationMin, -GestationMax)
 	
+	# use Fishbase growth for those species that have it
+	
+	all_traits <- all_traits %>%
+    mutate(TLinfinity = coalesce(TLinfinity, LengthAsymptotic),
+           K = coalesce(K, VonBertK)) |>
+	  select(-LengthAsymptotic, -VonBertK, -Winfinity) |>
+	  rename(VonBertK = K,
+	         LengthAsymptotic = TLinfinity,
+	         t_zero = to)
+	
 
 	# fill in data/values from existing df
 	
@@ -92,6 +102,9 @@
 	
 	# columns to remove from FishLife/FishBase df
 	col_to_drop_md <- setdiff(md_names, rd_names)
+	col_to_drop_md <- col_to_drop_md[-3] # keep WeightAsymptotic
+	col_to_drop_md <- col_to_drop_md[-9] # keep t_zero
+
 	
 	# remove
 	all_traits <- all_traits |>
@@ -132,6 +145,9 @@
 	# add salinity
 	all_traits$MinOptimalSal = 30
 	all_traits$MaxOptimalSal = 999
+	
+	# change intraspawn time for Scup
+	all_traits$IntraSpawnTime[all_traits$Species == "Scup"] <- 365
 	
 	write_csv(all_traits, here("./data/all_traits.csv"))
 
