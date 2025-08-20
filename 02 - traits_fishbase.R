@@ -242,5 +242,51 @@
 	fishbase_dfs <- fishbase_dfs |>
 		rename(LengthWeightRelationshipA = a,
 					 LengthWeightRelationshipB = b)
+	
+	# growth
+	
+	growth <- fb_tbl("popgrowth") |>
+		filter(SpecCode %in% spec_codes) |>
+	  select(SpecCode, Loo, TLinfinity, K, to, Winfinity)
+	
+	growth_filter <- growth |>
+	  filter(!is.na(to)) |>
+	  group_by(SpecCode) |>
+	  summarise(across(where(is.numeric), mean, na.rm = TRUE)) |>
+	  mutate(species_code = SpecCode)
+
+	# Scup has no 3-parameter growth curve in Fishbase so need to pull the 2-parameter; Species code is 452
+	growth <- fb_tbl("popgrowth") |>
+		filter(SpecCode %in% spec_codes) |>
+	  select(SpecCode, Loo, TLinfinity, K, to, Winfinity)
+	
+	growth_scup <- growth |>
+	  group_by(SpecCode) |>
+	  summarise(across(where(is.numeric), mean, na.rm = TRUE)) |>
+	  mutate(species_code = SpecCode) |>
+	  filter(species_code == 452) 
+
+	
+	# add to others
+	fishbase_dfs <- left_join(fishbase_dfs, growth_filter) |>
+	  select(-Loo)
+
+	# for Yellowtail flounder and Scup, no 3-parameter VBGF; for yellowtail flounder, a 2003 paper has 
+	# 3-parameter growth curve 
+	
+	# citation: 
+	# Dwyer, K. S., Walsh, S. J., & Campana, S. E. (2003). Age determination, validation and growth of Grand Bank yellowtail flounder (Limanda ferruginea). ICES Journal of Marine Science, 60(5), 1123-1138.
+	
+	# replace the Fishbase VBGF data with Dwyer et al. 2003 data
+	fishbase_dfs$K[fishbase_dfs$Species == "Yellowtail flounder"] <- 0.16
+	fishbase_dfs$to[fishbase_dfs$Species == "Yellowtail flounder"] <- -0.003
+	fishbase_dfs$TLinfinity[fishbase_dfs$Species == "Yellowtail flounder"] <- 55.6
+
+	# replace the Fishbase VBGF data with Dwyer et al. 2003 data
+	fishbase_dfs$K[fishbase_dfs$Species == "Scup"] <- growth_scup$K
+	fishbase_dfs$to[fishbase_dfs$Species == "Scup"] <- 0 # use 0 for 2-parameter VBGF
+	fishbase_dfs$TLinfinity[fishbase_dfs$Species == "Scup"] <- growth_scup$TLinfinity
 
 	write_csv(fishbase_dfs, file = here("./data/FishBase_traits.csv"))
+
+	
