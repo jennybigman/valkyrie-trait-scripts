@@ -58,9 +58,27 @@
 	n_batch_mp <- c(14, 13.6, 11, 14.7, 17.9, 13.9)
 	
 	avg_n_batch_mp <- sum(n_batch_mp)/length(n_batch_mp)
+	
+	# add to dataset
+	
+	Species <- c("Atlantic_Cod",
+               "Atlantic_Mackerel",
+               "Black_Sea_Bass",
+               "Haddock",
+               "Scup",
+               "Yellowtail_Flounder")
+	
+	NumBatch <- c(15.9, 14.2, 15.9, 15.9, 15.9, 15.9)
+	
+	nb <- tibble(Species, NumBatch)
+	
+	all_traits <- 
+	  left_join(all_traits, nb, by = "Species")
+
+	 write_csv(all_traits, file = here("./data/all_traits.csv"))
 
 	
-	################################################
+	################################################ NOT USED BELOW
 	
 	
 	# match species based on total length
