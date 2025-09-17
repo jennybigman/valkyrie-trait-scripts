@@ -79,10 +79,10 @@
 	sp_df_trim <- sp_df |>
 		dplyr::select(-species_code)
 
-	FL_traits_trim <- left_join(FL_traits_trim, sp_df_trim) |>
+	fishlife_dfs <- left_join(FL_traits_trim, sp_df_trim) |>
 		rename(Scientific_name = Species,
 					 Species = ComName)
 	
 
-	write_csv(FL_traits_trim, file = "./data/FishLife_traits.csv")
+	write_csv(fishlife_dfs, file = "./data/FishLife_traits.csv")
 	

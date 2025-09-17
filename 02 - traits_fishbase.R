@@ -286,6 +286,9 @@
 	fishbase_dfs$K[fishbase_dfs$Species == "Scup"] <- growth_scup$K
 	fishbase_dfs$to[fishbase_dfs$Species == "Scup"] <- 0 # use 0 for 2-parameter VBGF
 	fishbase_dfs$TLinfinity[fishbase_dfs$Species == "Scup"] <- growth_scup$TLinfinity
+	
+	
+	
 
 	write_csv(fishbase_dfs, file = here("./data/FishBase_traits.csv"))
 
