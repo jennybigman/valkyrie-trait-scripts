@@ -15,10 +15,15 @@
 	library(tidyverse)
   library(here)
 
-	all_traits <- read_csv(here("./data/all_traits.csv"))
-
+ 
 	# predict swim speed
 	load(file = here("./data/swim_speed_mod.rda"))
+
+		all_traits <- all_traits %>%
+	#	left_join(., wt_asym) |>
+		mutate(AveMass_g = ((2/3) * WeightAsymptotic),
+					 ad_avg_length = ((2/3) * LengthAsymptotic),
+					 jv_avg_length = ((1/3) * LengthAsymptotic))
 
 	# predict using model fit
 	
@@ -77,6 +82,10 @@
 					 `JvnlMinSwimSpeed_cm/s` = `JvnlMinSwimSpeed_bl/s` * jv_avg_length,
 					 `JvnlMaxSwimSpeed_cm/s` = `JvnlMaxSwimSpeed_bl/s` * jv_avg_length)
 	
-	write_csv(all_traits, here("./data/all_traits.csv"))
+	
+	# remove uneeded cols
+	all_traits <- all_traits |>
+	  select(-ad_avg_length, -jv_avg_length,
+	         -contains('bl/s'))
 
 	          

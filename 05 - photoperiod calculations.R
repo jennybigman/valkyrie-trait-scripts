@@ -18,9 +18,7 @@
 	library(tidyverse)
   library(here)
 
-	# load trait data
-	all_traits <- read_csv(here("./data/all_traits.csv"))
-	
+
 	# unique species 
 	common_names_list <- c("Atlantic Cod", "Atlantic Mackerel", 
 											   "Black Sea Bass", "Haddock",
@@ -180,5 +178,4 @@
 		rename(SpawnStartMonth = start_month,
 					 SpawnEndMonth = end_month)
 	
-	write.csv(all_traits, file = here("./data/all_traits.csv"))
 

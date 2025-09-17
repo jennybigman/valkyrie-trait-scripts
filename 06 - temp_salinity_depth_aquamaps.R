@@ -114,9 +114,12 @@
   
   all_traits$MaxDepth <- 1
   all_traits$MinDepth <- 1
-  
+  all_traits$MaxOptimalTemp <- 1
+  all_traits$MinOptimalTemp <-1
+  all_traits$MaxOptimalSal <- 1
+  all_traits$MinOptimalSal <-1
+ 
+
   all_traits <- all_traits %>%
     rows_update(aqmps_d, by = "Species")
   
-  write.csv(all_traits, file = here("./data/all_traits.csv"))
-
