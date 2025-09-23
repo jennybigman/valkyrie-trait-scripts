@@ -11,7 +11,9 @@
 	         VonBertK = K,
 	         t_zero = to,
 	         DaysToHatch = EggDevTime,
-	         DaysAsLarvae = Duration) |>
+	         DaysAsLarvae = Duration,
+		       SpawnMinDepth = Waterdepthmin,
+					 SpawnMaxDepth = Waterdepthmax) |>
 	  select(WeightAsymptotic,
 	         LengthAsymptotic,
 	         VonBertK,
@@ -24,7 +26,9 @@
 	         LengthWeightRelationshipA,
 	         LengthWeightRelationshipB,
 	         DaysAsLarvae,
-	         Species)
+	         Species,
+	         SpawnMinDepth,
+	         SpawnMaxDepth)
 	
 	fishlife_df <- fishlife_df |>
 	  select(-temperature, 
@@ -52,7 +56,12 @@
   # drop the temporary .y columns, keep X's original order
   Z <- Z %>% select(all_of(names(fishbase_df)))
   
-  all_traits <- Z
+  # remove the overlap cols from fishlife and add the rest back to main dataset
+  fishlife_df <- fishlife_df |>
+    select(-all_of(overlap))
+  
+  # add the columns 
+  all_traits <- left_join(Z, fishlife_df)
   
   # change names
   all_traits$Species[all_traits$Species == "Atlantic cod"] <- "Atlantic_Cod"
@@ -60,3 +69,4 @@
 	all_traits$Species[all_traits$Species == "Black sea bass"] <- "Black_Sea_Bass"
 	all_traits$Species[all_traits$Species == "Yellowtail flounder"] <- "Yellowtail_Flounder"
 
+	write_csv(all_traits, file = here("./data/all_traits_Sep2025.csv"))
