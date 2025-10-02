@@ -14,8 +14,6 @@
 ############################################################################################
 
 
-############# add in length at age 1 ###########
-
 	library(FishLife)
 	library(rfishbase)
 	library(tidyverse)
@@ -26,7 +24,6 @@
 	n <- nrow(all_traits)
 	
 	constant_df <- tibble(
-		"FunctionalGroup" = 1,
 		"TempShape" = 11,
 		"PctPopJvnl" = 0.5,
 		"PctPopAdlt" = 0.5, 
@@ -43,8 +40,17 @@
 	all_traits <- bind_cols(all_traits, constant_df)
 
 
-	# fix functional group
-	all_traits$FunctionalGroup[all_traits$Species == "Atlantic_Mackerel"] <- 0
+	# functional group 
+	fun_grp <- tibble(
+	  Species = unique(all_traits$Species),
+	  FunctionalGroup = c("Medium_Demersal", "Small_Pelagic", "Small_Demersal",
+	                      "Small_Demersal", "Medium_Demersal", "Medium_Demersal"),
+	  FeedingGuild = c("Piscivore", "Planktivore", "Benthivore",
+	                   "Benthivore", "Piscivore", "Piscivore"))
+	
+	
+	
+	all_traits <- left_join(all_traits, fun_grp)
 	
 	# specify max age juvenile = min age adult
 	all_traits$MaxAgeJvnl <- all_traits$MinAgeAdlt
