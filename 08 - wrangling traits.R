@@ -43,10 +43,10 @@
 	# functional group 
 	fun_grp <- tibble(
 	  Species = unique(all_traits$Species),
-	  FunctionalGroup = c("Medium_Demersal", "Small_Pelagic", "Small_Demersal",
-	                      "Small_Demersal", "Medium_Demersal", "Medium_Demersal"),
-	  FeedingGuild = c("Piscivore", "Planktivore", "Benthivore",
-	                   "Benthivore", "Piscivore", "Piscivore"))
+	  FunctionalGroup = c("Medium_Demersal", "Small_Pelagic", "Medium_Demersal",
+	                      "Medium_Demersal", "Medium_Demersal", "Medium_Demersal"),
+	  FeedingGuild = c("Piscivore", "Planktivore", "Piscivore",
+	                   "Piscivore", "Piscivore", "Piscivore"))
 	
 	
 	
