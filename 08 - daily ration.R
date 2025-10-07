@@ -3,17 +3,17 @@
 # from Palomares and Pauly 
 
 	
-	QB_fun <- function(ln_Winf, ln_T, ln_A, F){
+	QB_fun <- function(ln_Winf, ln_T, ln_A, FT){
 
-    ln_QB = -0.1775 - 0.2018 * ln_Winf + 0.6121 * ln_T + 0.5156 * ln_A + 1.26 * (F)
+    ln_QB = -0.1775 - 0.2018 * ln_Winf + 0.6121 * ln_T + 0.5156 * ln_A + 1.26 * (FT)
     QB = exp(ln_QB)
     QB
 	}
 	
 	d <- all_traits |>
 	  select(Species, WeightAsymptotic, MaxOptimalTemp, MinOptimalTemp) |>
-	  mutate(T = ((MinOptimalTemp + MaxOptimalTemp) / 2),
-	         F = 0) |>
+	  mutate(mid_temp = ((MinOptimalTemp + MaxOptimalTemp) / 2),
+	         FT = 0) |>
 	  select(-MinOptimalTemp, -MaxOptimalTemp) |>
 	  rename(Winf = WeightAsymptotic) 
 	
@@ -42,7 +42,7 @@
     rename(caudal_AR = any_of(c("AspectRatio", "Aspect.ratio", "aspect_ratio"))) |>
     filter(!is.na(caudal_AR)) |>
     group_by(Species) |>
-    summarise(A = mean(caudal_AR, na.rm = TRUE), .groups = "drop") 
+    summarise(AR = mean(caudal_AR, na.rm = TRUE), .groups = "drop") 
     
   
   A <- left_join(mm_ar, sp_df) |>
@@ -50,7 +50,7 @@
       Species = stringr::str_squish(ComName),
       Species = stringr::str_to_title(ComName),  
       Species = stringr::str_replace_all(ComName, " ", "_")) |>
-    select(Species, A)
+    select(Species, AR)
   
   
   A$Species[A$Species == "Atlantic_cod"] <- "Atlantic_Cod"
@@ -63,14 +63,14 @@
   
   d <- d |>
     mutate(ln_Winf = log(Winf),
-           ln_T = log(T),
-           ln_A = log(A))
+           ln_T = log(mid_temp),
+           ln_A = log(AR))
   
   d <- d |>
     rowwise() |>
-    mutate(QB = QB_fun(ln_Winf, ln_T, ln_A, F)) |>
+    mutate(QB = QB_fun(ln_Winf, ln_T, ln_A, FT)) |>
     ungroup() |>
-    mutate(DailyRation = ((QB/365) * 100))
+    mutate(DailyRation = (QB/365))
   
   
   d <- d |>
