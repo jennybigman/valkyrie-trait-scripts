@@ -105,7 +105,7 @@
 	all_traits$FunctionalGroup[all_traits$FunctionalGroup == 0] <- "Small_Pelagics"
 	
 	# add NumAgents and IndsPerAgent
-	all_traits$NumAgents <- 200/6
+	all_traits$NumAgents <- 50
 	all_traits$IndsPerAgent <- 1000
 
 	# max age juvenile remove
