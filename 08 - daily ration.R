@@ -2,20 +2,8 @@
 
 # from Palomares and Pauly 
 
+# set up daily ration predictions -  need ln(Winf), ln(caudal fin aspect ratio), feeding type, and ln(temp (habitat))
 	
-	QB_fun <- function(ln_Winf, ln_T, ln_A, FT){
-
-    ln_QB = -0.1775 - 0.2018 * ln_Winf + 0.6121 * ln_T + 0.5156 * ln_A + 1.26 * (FT)
-    QB = exp(ln_QB)
-    QB
-	}
-	
-	d <- all_traits |>
-	  select(Species, WeightAsymptotic, MaxOptimalTemp, MinOptimalTemp) |>
-	  mutate(mid_temp = ((MinOptimalTemp + MaxOptimalTemp) / 2),
-	         FT = 0) |>
-	  select(-MinOptimalTemp, -MaxOptimalTemp) |>
-	  rename(Winf = WeightAsymptotic) 
 	
   # get caudal fin aspect ratio
 	common_names_list <- c("Atlantic Cod", "Atlantic Mackerel", 
@@ -58,26 +46,21 @@
   A$Species[A$Species == "Atlantic_mackerel"] <- "Atlantic_Mackerel"
   A$Species[A$Species == "Black_sea_bass"] <- "Black_Sea_Bass"
   
-  d <- left_join(d, A)
+  all_traits <- left_join(all_traits, A)
   
   
-  d <- d |>
-    mutate(ln_Winf = log(Winf),
-           ln_T = log(mid_temp),
-           ln_A = log(AR))
-  
-  d <- d |>
-    rowwise() |>
-    mutate(QB = QB_fun(ln_Winf, ln_T, ln_A, FT)) |>
-    ungroup() |>
-    mutate(DailyRation = (QB/365))
-  
-  
-  d <- d |>
-    select(Species, DailyRation)
-  
-  all_traits <- left_join(all_traits, d)
+  all_traits <- all_traits |>
+    mutate(ln_Winf = log(WeightAsymptotic),
+           ln_A = log(AR),
+           FT = 0)
   
 	
-	
+##### 
+  
+ # 	QB_fun <- function(ln_Winf, ln_T, ln_A, FT){
+#
+ #   ln_QB = -0.1775 - 0.2018 * ln_Winf + 0.6121 * ln_T + 0.5156 * ln_A + 1.26 * (FT)
+ #   QB = exp(ln_QB)
+ #   QB
+#	}
 	
