@@ -24,6 +24,8 @@
 		mutate(AveMass_g = ((2/3) * WeightAsymptotic),
 					 ad_avg_length = ((2/3) * LengthAsymptotic),
 					 jv_avg_length = ((1/3) * LengthAsymptotic))
+		
+		write_csv(all_traits, file = here("./data/ave_mass.csv"))
 
 	# predict using model fit
 	
