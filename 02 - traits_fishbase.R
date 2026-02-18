@@ -19,9 +19,7 @@
 	# set up
 	#options("duckdbfs_use_nightly" = FALSE) # for rfishbase pkg compatibility
 	
-	conflicts_prefer(dplyr::select)
-	conflicts_prefer(dplyr::filter)
-	
+
 	# read in FishLife traits for later merging
 	FL_traits_trim <-	read_csv(file = here("./data/FishLife_traits.csv"))
 
@@ -59,8 +57,8 @@
 
 	# spawning df
 	spawn_df <- fb_tbl("spawning") |>
-		filter(SpecCode %in% spec_codes) |>
-		select(FecundityMin, FecundityMax, 
+		dplyr::filter(SpecCode %in% spec_codes) |>
+		dplyr::select(FecundityMin, FecundityMax, 
 					 SpawningCycles, SpecCode,
 					 GestationMin, GestationMax,
 					 Dailyspawnmax, Dailyspawnmin)
