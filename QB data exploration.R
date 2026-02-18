@@ -34,6 +34,8 @@
     drop_na()
   
   qb_df <- left_join(qb_df, sp_df) # 65 unique species
+  
+  write_csv(qb_df, file = here("QB exploration", "FishBase_QB_table.csv"))
     
   # ration table
   ration_df <- fb_tbl("ration") |>
